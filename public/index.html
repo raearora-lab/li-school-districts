@@ -39,7 +39,7 @@
   <section class="hero" id="top">
     <p class="eyebrow">Nassau + Suffolk · 2026-27 budgets · fall 2025 enrollment</p>
     <h1><span class="h-lime">Long Island</span><br><span class="h-pink">school districts</span></h1>
-    <p class="lede">Every one of the <b>125</b> districts in Nassau and Suffolk: what each plans to spend in 2026-27, what it asks from taxpayers, and how many students it teaches. Click a pin, switch the map color, or sort the table.</p>
+    <p class="lede">Every one of the <b>125</b> districts in Nassau and Suffolk: what each plans to spend in 2026-27, what it asks from taxpayers, how many students it teaches, how they test and graduate, and what teachers earn. Click a pin, switch the map color, sort the table, or pick several districts to <b>compare side by side</b>.</p>
     <div class="hero-stats" id="hero-stats" aria-live="polite"></div>
   </section>
 
@@ -89,14 +89,23 @@
       <p class="section-note">Top 15 proposed 2026-27 budgets. Bar length is total spending; the figure on the right is the change from 2025-26.</p>
       <div class="chart" id="chart-bud"></div>
 
+      <h2 class="glow-lime sp">Teacher pay</h2>
+      <p class="section-note">Median salary of full-time classroom teachers, 2024-25 school year, as reported to the state.</p>
+      <div class="pills tabs" id="sal-tabs"></div>
+      <div class="chart" id="chart-sal"></div>
+
       <h2 class="glow-teal sp">Size vs spending</h2>
       <p class="section-note">Each dot is a district: students across, budget per pupil up. Small East End districts spend the most per student. Hover or tap a dot.</p>
       <div class="scatter-wrap" id="scatter"></div>
+
+      <h2 class="glow-pink sp">Spending vs ELA scores</h2>
+      <p class="section-note">Budget per pupil against the share of grades 3-8 students proficient in English language arts in spring 2025. More money does not line up neatly with higher scores.</p>
+      <div class="scatter-wrap" id="scatter2"></div>
     </section>
 
     <section id="table">
       <h2 class="glow-lime">All 125 districts</h2>
-      <p class="section-note">Click a column to sort. Click a row to fly to it on the map.</p>
+      <p class="section-note">Click a column to sort. Click a row to fly to it on the map. Tick the boxes to compare up to six districts side by side. <a href="data/li_school_districts.csv" download>Download the CSV</a> with every field.</p>
       <div class="explorer-controls">
         <input id="ex-q" type="search" placeholder="Search a district…">
         <div class="pills" id="ex-county"></div>
@@ -113,6 +122,9 @@
         <li><b>Enrollment:</b> NYSED BEDS Day enrollment, 2025-26, with 2024-25 for the one-year change. <a href="https://data.nysed.gov/downloads.php" rel="noopener">data.nysed.gov/downloads.php</a></li>
         <li><b>Pin locations:</b> NCES EDGE public school district (LEA) locations, 2024-25: the geocoded district office address. <a href="https://nces.ed.gov/programs/edge/Geographic/SchoolLocations" rel="noopener">nces.ed.gov/programs/edge</a></li>
         <li><b>District boundaries:</b> U.S. Census Bureau TIGER/Line 2024 unified and elementary school districts, clipped to the county land area and simplified for display. <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html" rel="noopener">census.gov TIGER/Line</a></li>
+        <li><b>Graduation rate:</b> NYSED High School Graduation Rate database, 2024-25 release: 4-year outcome of the 2021 total cohort as of August 2025, all students, district level. Also Regents diploma with advanced designation and dropout shares. <a href="https://data.nysed.gov/downloads.php" rel="noopener">data.nysed.gov/downloads.php</a></li>
+        <li><b>Test scores:</b> NYSED Report Card database 2024-25 (SRC2025): grades 3-8 ELA and math, percent of tested students at Level 3 or above, spring 2025, all students; Regents Algebra I and Regents English Language Arts, percent at Level 3 or above, 2024-25. <a href="https://data.nysed.gov/downloads.php" rel="noopener">data.nysed.gov/downloads.php</a></li>
+        <li><b>Teacher salaries:</b> NYSED Personnel Master File statistical runs, 2024-25: median (50th percentile) salary of full-time classroom teachers, plus average salary per full-time equivalent and the classroom teacher count. <a href="https://www.nysed.gov/information-reporting-services/personnel-master-file-pmf" rel="noopener">nysed.gov personnel master file</a></li>
         <li><b>Basemap:</b> Esri World Dark Gray Canvas.</li>
       </ul>
       <h3>Missing values</h3>
@@ -125,10 +137,33 @@
         <li><b>Two enrollment counts.</b> Students (PK-12) is the state's fall 2025 BEDS-day count of students in district schools. Per-pupil spending uses the district-reported budget enrollment, which can be higher where districts pay tuition for students taught elsewhere (Remsenburg-Speonk, Tuckahoe, East Moriches).</li>
         <li><b>Budgets are proposals</b> as submitted for the May 2026 vote, and include tuition, charter-school payments and debt service, which raise per-pupil figures in some districts.</li>
         <li><b>Over the tax cap</b> means the proposed levy exceeds the district's state tax-levy limit, which needs 60% voter approval.</li>
+        <li><b>No high school.</b> 25 districts teach only up to grade 3, 6 or 8 and send older students to a neighboring or central high school district, so they have no graduation rate or Regents ELA figure. They are marked No HS, never estimated.</li>
+        <li><b>Suppressed scores.</b> The state blanks a figure when a group is small enough to identify students. Grades 3-8 math is suppressed for 34 districts, mostly because a handful of 7th graders took the Regents Algebra I exam instead and the combined figure would reveal them; ELA is suppressed for 5 small districts. These are marked Suppr., never estimated.</li>
+        <li><b>Grades 3-8 math</b> counts 7th and 8th graders who took the Regents Algebra I exam instead of the grade-level test, as the state does.</li>
+        <li><b>Teacher salary</b> covers full-time classroom teachers only and only settled contracts; the state does not publish a salary where a contract was unsettled. A median for a very small district reflects only a few teachers.</li>
+        <li><b>Compare mode</b> marks the best and worst value in each row in lime and pink where one direction is clearly better (higher scores and graduation, lower cost growth and per-pupil cost). Size, budget, levy and salary rows are only marked highest and lowest.</li>
         <li><b>Pins mark district offices,</b> not geographic centers; a few offices sit near a boundary (Westbury and East Williston are both in Old Westbury).</li>
       </ul>
     </section>
   </main>
+
+  <div id="cmp-tray" class="cmp-tray" hidden>
+    <div class="cmp-panel" role="dialog" aria-label="Compare districts">
+      <div class="cmp-head"><h2 class="glow-pink">Compare</h2><button type="button" id="cmp-close" class="btn">Close</button></div>
+      <p class="cmp-key"><span class="k best">Best</span><span class="k worst">Worst</span><span class="k hi">Highest</span><span class="k lo">Lowest</span></p>
+      <div class="cmp-wrap" id="cmp-table"></div>
+    </div>
+    <div class="cmp-bar">
+      <span class="cmp-label">Compare <span id="cmp-count"></span></span>
+      <div class="chips" id="cmp-chips"></div>
+      <div class="cmp-actions">
+        <button type="button" id="cmp-open" class="btn solid">Compare</button>
+        <button type="button" id="cmp-link" class="btn">Copy link</button>
+        <button type="button" id="cmp-clear" class="btn pinkb">Clear</button>
+      </div>
+    </div>
+  </div>
+  <div id="toast" class="toast" hidden></div>
 
   <footer class="site-footer">
     <p>A <a href="https://whorunsny.org" rel="noopener">Who Runs NY</a> project by Rae Arora. Figures are from the New York State Education Department; locations from NCES and the U.S. Census Bureau. This page does not speak for any of them.</p>
