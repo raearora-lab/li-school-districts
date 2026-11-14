@@ -40,6 +40,9 @@ h2 { font-size:clamp(30px,4.2vw,50px); font-weight:900; line-height:1; margin-bo
 .hero { max-width:var(--max); margin:0 auto; padding:64px 20px 40px; }
 .lede { max-width:46rem; font-size:19px; margin:24px 0 0; color:var(--ink); }
 .lede b { color:var(--lime); }
+.related { margin:16px 0 0; font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); }
+.related a { color:var(--teal); text-decoration:none; text-shadow:var(--glow-teal); }
+.related a:hover { color:var(--lime); text-shadow:var(--glow-lime); }
 .hero-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:44px; }
 .stat { background:#000; border:1px solid #1f1f28; border-radius:var(--radius); padding:18px 18px 16px; box-shadow:0 0 0 1px rgba(200,255,0,.04); }
 .stat .n { display:block; font-family:var(--serif); font-weight:900; font-size:clamp(32px,4vw,52px); line-height:1; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
